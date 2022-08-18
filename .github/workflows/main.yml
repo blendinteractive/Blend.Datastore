@@ -23,10 +23,10 @@ jobs:
           dotnet-version: 5.0.x
       - name: Build Package
         run:           
-          dotnet build -c Release "./src/Blend.Datastore/Blend.Datastore.csproj"
+          dotnet build -c Release "./src/BlendInteractive.Datastore/BlendInteractive.Datastore.csproj"
       - name: Package Release
         run:           
-          dotnet pack -c Release --no-build -o out "./src/Blend.Datastore/Blend.Datastore.csproj"
+          dotnet pack -c Release --no-build -o out "./src/BlendInteractive.Datastore/BlendInteractive.Datastore.csproj"
       - name: Publish Nuget to GitHub registry
         run: ls .\out\*.nupkg | foreach { dotnet nuget push $_ -s https://nuget.pkg.github.com/blendinteractive/index.json -k $env:GITHUB_TOKEN }
         env:

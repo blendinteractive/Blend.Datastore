@@ -1,7 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System.Threading.Tasks;
 
-namespace Blend.Datastore.Tests
+namespace BlendInteractive.Datastore.Tests
 {
     public class TestDatastore : AbstractDatastore
     {

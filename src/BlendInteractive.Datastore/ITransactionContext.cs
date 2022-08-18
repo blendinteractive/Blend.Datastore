@@ -1,4 +1,4 @@
-﻿namespace Blend.Datastore
+﻿namespace BlendInteractive.Datastore
 {
     public interface ITransactionContext
     {

@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Blend.Datastore\Blend.Datastore.csproj" />
+    <ProjectReference Include="..\..\src\BlendInteractive.Datastore\BlendInteractive.Datastore.csproj" />
   </ItemGroup>
 
 </Project>

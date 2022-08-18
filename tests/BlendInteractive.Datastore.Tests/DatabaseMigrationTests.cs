@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Blend.Datastore.Tests
+namespace BlendInteractive.Datastore.Tests
 {
     public class DatabaseMigrationTests
     {

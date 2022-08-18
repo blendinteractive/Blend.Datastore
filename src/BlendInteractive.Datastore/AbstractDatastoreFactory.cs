@@ -5,7 +5,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Blend.Datastore
+namespace BlendInteractive.Datastore
 {
     public abstract class AbstractDatastoreFactory<TDatastore> where TDatastore : AbstractDatastore
     {

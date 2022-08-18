@@ -1,6 +1,6 @@
-# Blend.Datastore
+# BlendInteractive.Datastore
 
-This is a minimalist SQL migration system and access pattern. It provides rudimentary database migration capabilities, and a relatively simple pattern for executing queries and transactions against a database. `Blend.Datastore` does not feature any DSL for migrations/queries/etc, but rather executes SQL that you provide.
+This is a minimalist SQL migration system and access pattern. It provides rudimentary database migration capabilities, and a relatively simple pattern for executing queries and transactions against a database. `BlendInteractive.Datastore` does not feature any DSL for migrations/queries/etc, but rather executes SQL that you provide.
 
 This is mostly geared for situations where raw SQL is a better choice than expecting a framework to convert a DSL into SQL. Examples might be where it's a small schema for which something like Entity Framework would be overkill, or with tables/procedures/indicies that are finely tuned and have to be built via direct SQL.
 
@@ -73,7 +73,7 @@ END
 
 ### Querying and Executing SQL
 
-The first thing you'll do is implement `AbstractDatastore`. This just requires a constructor to pass through the connection and transaction. Then you'll add your own methods to execute queries using the provided connection and transaction. `Blend.Datastore` does not require any particular SQL frameworks, but it works well with something like Dapper.
+The first thing you'll do is implement `AbstractDatastore`. This just requires a constructor to pass through the connection and transaction. Then you'll add your own methods to execute queries using the provided connection and transaction. `BlendInteractive.Datastore` does not require any particular SQL frameworks, but it works well with something like Dapper.
 
 The methods you provide can be synchronous or asynchronous.
 
@@ -117,7 +117,7 @@ Next you'll implement `AbstractDatastoreFactory<T>` where `T` will be your `Abst
         }
 
         // Usually `ProjectName.Namespace` - This is the prefix for the embedded SQL migration file paths.
-        public override string SqlResourcesPrefix => "Blend.Datastore.Tests.Migrations";
+        public override string SqlResourcesPrefix => "BlendInteractive.Datastore.Tests.Migrations";
 
         // The name of the stored procedure you use to track the DB version. This should match what's in the ####.sql files.
         protected override string GetVersionProcedureName => "DatabaseVersion";

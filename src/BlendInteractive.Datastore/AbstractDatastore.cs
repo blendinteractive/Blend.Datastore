@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 
-namespace Blend.Datastore
+namespace BlendInteractive.Datastore
 {
     public abstract class AbstractDatastore
     {

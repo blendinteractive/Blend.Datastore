@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blend.Datastore", "src\Blend.Datastore\Blend.Datastore.csproj", "{2EB32AF9-68FE-4C20-BE8A-3899EE045394}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlendInteractive.Datastore", "src\BlendInteractive.Datastore\BlendInteractive.Datastore.csproj", "{2EB32AF9-68FE-4C20-BE8A-3899EE045394}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blend.Datastore.Tests", "tests\Blend.Datastore.Tests\Blend.Datastore.Tests.csproj", "{5F0E46F5-FD3F-4CAF-A18C-A0EC02C09B64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlendInteractive.Datastore.Tests", "tests\BlendInteractive.Datastore.Tests\BlendInteractive.Datastore.Tests.csproj", "{5F0E46F5-FD3F-4CAF-A18C-A0EC02C09B64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 
-namespace Blend.Datastore.Tests
+namespace BlendInteractive.Datastore.Tests
 {
     public class TestDatastoreFactory : AbstractDatastoreFactory<TestDatastore>
     {
@@ -9,7 +9,7 @@ namespace Blend.Datastore.Tests
         }
 
         // Usually `ProjectName.Namespace` - This is the prefix for the embedded SQL migration file paths.
-        public override string SqlResourcesPrefix => "Blend.Datastore.Tests.Migrations";
+        public override string SqlResourcesPrefix => "BlendInteractive.Datastore.Tests.Migrations";
 
         // The name of the stored procedure you use to track the DB version. This should match what's in the ####.sql files.
         protected override string GetVersionProcedureName => "DatabaseVersion";
