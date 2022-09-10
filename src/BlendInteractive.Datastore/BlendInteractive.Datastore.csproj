@@ -2,19 +2,49 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+    <PackageId>BlendInteractive.Datastore</PackageId>
     <Description>A minimalist SQL migration system and access pattern</Description>
+
     <Version>1.0.0</Version>
-    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    <PackageVersion>1.0.0</PackageVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
+
     <Authors>Blend Interactive</Authors>
+    <Company>Blend Interactive</Company>
+
     <PackageProjectUrl>https://github.com/blendinteractive/Blend.Datastore</PackageProjectUrl>
     <RepositoryUrl>https://github.com/blendinteractive/Blend.Datastore.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
+
+    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+   <ItemGroup>
+    <None Include="..\..\License">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

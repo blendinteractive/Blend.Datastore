@@ -1,33 +1,43 @@
-name: Update NuGet
+name: Build and Publish
 
-on: [push]
+on:
+  workflow_dispatch:
+    inputs:
+      cert_password:
+        description: 'Certificate decryption password'
+        required: true
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
-    name: Publish Nuget Package
+    name: Build and Publish Nuget Package
     steps:
       - uses: actions/checkout@master
-      - name: Setup .NET Core 2.1
-        uses: actions/setup-dotnet@v1
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 2.1.x
-      - name: Setup .NET Core 3.1
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.x
-      - name: Setup .NET Core 5.0
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 5.0.x
+          dotnet-version: | 
+            2.1.x
+            3.1.x
+            5.0.x
       - name: Build Package
-        run:           
-          dotnet build -c Release "./src/BlendInteractive.Datastore/BlendInteractive.Datastore.csproj"
+        run:
+          dotnet build -c Release ./src/BlendInteractive.Datastore/BlendInteractive.Datastore.csproj /p:ContinuousIntegrationBuild=true
       - name: Package Release
         run:           
-          dotnet pack -c Release --no-build -o out "./src/BlendInteractive.Datastore/BlendInteractive.Datastore.csproj"
-      - name: Publish Nuget to GitHub registry
-        run: ls .\out\*.nupkg | foreach { dotnet nuget push $_ -s https://nuget.pkg.github.com/blendinteractive/index.json -k $env:GITHUB_TOKEN }
+          dotnet pack -c Release --no-build -o out ./src/BlendInteractive.Datastore/BlendInteractive.Datastore.csproj
+      - name: Retrieve and decode signing cert
+        run: echo $CERTIFICATE_BASE64 | base64 --decode > ./cert.p12
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
+      - name: Sign package
+        run: dotnet nuget sign ./out/*.nupkg --certificate-path ./cert.p12 --timestamper http://ts.ssl.com --certificate-password $CERT_PASSWORD
+        env:
+          CERT_PASSWORD: ${{ github.event.inputs.cert_password }}
+      - name: Clean up signing cert
+        run: rm ./cert.p12
+      - name: Publish package to Nuget public registry
+        run: dotnet nuget push ./out/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }} 
