@@ -20,8 +20,8 @@
 
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <PackageIcon>icon.png</PackageIcon>
-	<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
+  	<PackageLicenseFile>License</PackageLicenseFile>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
 
     <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
@@ -38,15 +38,15 @@
    <ItemGroup>
     <None Include="..\..\License">
       <Pack>True</Pack>
-      <PackagePath>LICENSE.txt</PackagePath>
+      <PackagePath></PackagePath>
     </None>
     <None Include="..\..\README.md">
       <Pack>True</Pack>
-      <PackagePath>README.md</PackagePath>
+      <PackagePath></PackagePath>
     </None>
     <None Include="..\..\icon.png">
       <Pack>True</Pack>
-      <PackagePath>icon.png</PackagePath>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 
