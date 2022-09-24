@@ -33,7 +33,11 @@ jobs:
           CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
       - name: Clean up signing cert
         run: rm ./cert.p12
-      - name: Publish package to Nuget public registry
-        run: dotnet nuget push ./out/*.nupkg -k "$NUGET_AUTH_TOKEN" -s 'https://nuget.pkg.github.com/blendinteractive/index.json'
+      - name: Publish package to Github registry
+        run: dotnet nuget push ./out/*.nupkg -k "$GITHUB_AUTH_TOKEN" -s 'https://nuget.pkg.github.com/blendinteractive/index.json'
         env:
-          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      - name: Publish package to Nuget public registry
+        run: dotnet nuget push ./out/*.nupkg -k "$NUGET_AUTH_TOKEN" -s 'https://api.nuget.org/v3/index.json'
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_API_KEY }} 
