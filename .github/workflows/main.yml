@@ -1,11 +1,6 @@
 name: Build and Publish
 
-on:
-  workflow_dispatch:
-    inputs:
-      cert_password:
-        description: 'Certificate decryption password'
-        required: true
+on: workflow_dispatch
 
 jobs:
   build:
@@ -33,9 +28,9 @@ jobs:
         env:
           CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
       - name: Sign package
-        run: dotnet nuget sign ./out/*.nupkg --certificate-path ./cert.p12 --timestamper http://ts.ssl.com --certificate-password $CERT_PASSWORD
+        run: dotnet nuget sign ./out/*.nupkg --certificate-path ./cert.p12 --timestamper http://ts.ssl.com --certificate-password "$CERT_PASSWORD"
         env:
-          CERT_PASSWORD: ${{ github.event.inputs.cert_password }}
+          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
       - name: Clean up signing cert
         run: rm ./cert.p12
       - name: Publish package to Nuget public registry
