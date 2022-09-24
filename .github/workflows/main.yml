@@ -28,7 +28,7 @@ jobs:
         run:           
           dotnet pack -c Release --no-build -o out ./src/BlendInteractive.Datastore/BlendInteractive.Datastore.csproj
       - name: Retrieve and decode signing cert
-        run: echo $CERTIFICATE_BASE64 | base64 --decode > ./cert.p12
+        run: echo "$CERTIFICATE_BASE64" | base64 --decode > ./cert.p12
         env:
           CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
       - name: Sign package
