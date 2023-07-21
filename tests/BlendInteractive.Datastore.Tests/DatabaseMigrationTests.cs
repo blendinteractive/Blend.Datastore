@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
+using System;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -123,6 +124,98 @@ namespace BlendInteractive.Datastore.Tests
                 (hasFavorite, noFavorite) = await factory.QueryAsync(async db => ((await db.GetCountHasFavoriteColorAsync()), (await db.GetCountNoFavoriteColorAsync())));
                 Assert.Equal(0, hasFavorite);
                 Assert.Equal(0, noFavorite);
+            }
+            finally
+            {
+                // Clean up, version 3 (0002.sql) cleans up DB
+                var cleanupFactory = new TestDatastoreFactory3(ConnectionString);
+                cleanupFactory.EnsureMigration();
+            }
+        }
+
+        [Fact]
+        public async Task CanUseAsyncConvenienceMethods()
+        {
+            try
+            {
+                var factory = new TestDatastoreFactory2(ConnectionString);
+                int currentVersion = factory.Query(db => db.GetCurrentVersion());
+                Assert.Equal(2, currentVersion);
+
+                var bobbyTables = new PersonRecord
+                {
+                    Email = "test@example.com",
+                    FullName = "'; DROP TABLE Person; --",
+                    FavoriteColor = "red"
+                };
+
+                await factory.ExecuteAsync(db => db.InsertAsync(bobbyTables));
+
+                var bobbyBack = await factory.QueryAsync(db => db.GetByEmailAsync(bobbyTables.Email));
+                Assert.Equal(bobbyTables.Email, bobbyBack.Email);
+                Assert.Equal(bobbyTables.FullName, bobbyBack.FullName);
+                Assert.Equal(bobbyTables.FavoriteColor, bobbyBack.FavoriteColor);
+
+
+                var sallyTables = new PersonRecord
+                {
+                    Email = "test2@example.com",
+                    FullName = "'; DROP TABLE Person; DROP PROCEDURE DatabaseVersion; --",
+                    FavoriteColor = "asdf"
+                };
+
+                await factory.ExecuteAsync(db => db.InsertAsync(sallyTables));
+
+                var sallyBack = await factory.QueryAsync(db => db.GetByEmailAsync(sallyTables.Email));
+                Assert.Equal(sallyTables.Email, sallyBack.Email);
+                Assert.Equal(sallyTables.FullName, sallyBack.FullName);
+                Assert.Equal(sallyTables.FavoriteColor, sallyBack.FavoriteColor);
+            }
+            finally
+            {
+                // Clean up, version 3 (0002.sql) cleans up DB
+                var cleanupFactory = new TestDatastoreFactory3(ConnectionString);
+                cleanupFactory.EnsureMigration();
+            }
+        }
+
+        [Fact]
+        public void CanUseConvenienceMethods()
+        {
+            try
+            {
+                var factory = new TestDatastoreFactory2(ConnectionString);
+                int currentVersion = factory.Query(db => db.GetCurrentVersion());
+                Assert.Equal(2, currentVersion);
+
+                var bobbyTables = new PersonRecord
+                {
+                    Email = "test@example.com",
+                    FullName = "'; DROP TABLE Person; --",
+                    FavoriteColor = "red"
+                };
+
+                factory.Execute(db => db.Insert(bobbyTables));
+
+                var bobbyBack = factory.Query(db => db.GetByEmail(bobbyTables.Email));
+                Assert.Equal(bobbyTables.Email, bobbyBack.Email);
+                Assert.Equal(bobbyTables.FullName, bobbyBack.FullName);
+                Assert.Equal(bobbyTables.FavoriteColor, bobbyBack.FavoriteColor);
+
+
+                var sallyTables = new PersonRecord
+                {
+                    Email = "test2@example.com",
+                    FullName = "'; DROP TABLE Person; DROP PROCEDURE DatabaseVersion; --",
+                    FavoriteColor = "asdf"
+                };
+
+                factory.Execute(db => db.Insert(sallyTables));
+
+                var sallyBack = factory.Query(db => db.GetByEmail(sallyTables.Email));
+                Assert.Equal(sallyTables.Email, sallyBack.Email);
+                Assert.Equal(sallyTables.FullName, sallyBack.FullName);
+                Assert.Equal(sallyTables.FavoriteColor, sallyBack.FavoriteColor);
             }
             finally
             {

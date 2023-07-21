@@ -154,6 +154,57 @@ An example of using an `async` transaction:
 
 The transaction is committed automatically when your method returns, unless you set `context.RollbackTransaction = true`. Further, connections are closed and disposed automatically as well.
 
+### Convenience Methods
+
+For writing Datastores, the `AbstractDatastore` class provides a few protected methods to make querying with parameters easier:
+
+* `IEnumerable<T> Query<T>(FormattableString sql, Func<IDataReader, T> transform, Action<SqlCommand> tweak = null)` and async variation
+* `object ExecuteScalar(FormattableString sql, Action<SqlCommand> tweak = null)` and async variation
+* `void ExecuteNonQuery(FormattableString sql, Action<SqlCommand> tweak = null)` and async variation
+
+Inside your Datastore you can call these methods with interpolated strings for automatic parameter insertion.
+
+For example:
+
+```csharp
+    public class PersonRecord
+    {
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public string FullName { get; set; }
+        public string FavoriteColor { get; set; }
+
+        public static PersonRecord FromDataReader(IDataReader reader)
+        {
+            // WARNING: This is an OVERLY simplistic implementation.
+            // * Assumes consistent column order and count
+            // * Does not check for nulls
+            // * Really, this is terrible. Don't do it like this.
+            return new PersonRecord
+            {
+                Id = reader.GetInt32(0),
+                Email = reader.GetString(1),
+                FullName = reader.GetString(2),
+                FavoriteColor = reader.GetString(3)
+            };
+        }
+    }
+
+    // Inside the Datastore:
+    public void Insert(PersonRecord person)
+    {
+        ExecuteNonQuery($"INSERT INTO Person (Email, FullName, FavoriteColor) VALUES ({person.Email}, {person.FullName}, {person.FavoriteColor});");
+    }
+
+    public PersonRecord GetByEmail(string email)
+    {
+        var people = Query($"SELECT Id, Email, FullName, FavoriteColor FROM Person WHERE Email = {email}", PersonRecord.FromDataReader);
+        return people.Single();
+    }
+```
+
 ## Caveats
 
 Currently, this system only supports forward/up migrations. It does not migrate to previous versions.
+
+Currently, the `QueryAsync<T>` method loads all results into a `List<T>` and returns that list. The synchronous `Query<T>` method yields results as they are read from the DB. This behavior may change in the future.
