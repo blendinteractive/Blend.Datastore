@@ -6,10 +6,10 @@
     <PackageId>BlendInteractive.Datastore</PackageId>
     <Description>A minimalist SQL migration system and access pattern</Description>
 
-    <Version>1.1.0</Version>
-    <PackageVersion>1.1.0</PackageVersion>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.1</Version>
+    <PackageVersion>1.1.1</PackageVersion>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
 
     <Authors>Blend Interactive</Authors>
     <Company>Blend Interactive</Company>
@@ -24,15 +24,15 @@
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
 
-    <PackageReleaseNotes>Added some convenience methods using interpolated strings</PackageReleaseNotes>
+    <PackageReleaseNotes>Added some convenience methods using interpolated strings, and updated System.Data.SqlClient dependency</PackageReleaseNotes>
 
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
    <ItemGroup>
