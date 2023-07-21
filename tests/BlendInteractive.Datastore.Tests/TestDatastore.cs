@@ -1,4 +1,6 @@
-﻿using System.Data.SqlClient;
+﻿using System.Collections;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlendInteractive.Datastore.Tests
@@ -61,6 +63,28 @@ namespace BlendInteractive.Datastore.Tests
             {
                 return (await reader.ReadAsync()) ? reader.GetInt32(0) : -1;
             }
+        }
+
+        public async Task InsertAsync(PersonRecord person)
+        {
+            await ExecuteNonQueryAsync($"INSERT INTO Person (Email, FullName, FavoriteColor) VALUES ({person.Email}, {person.FullName}, {person.FavoriteColor});");
+        }
+
+        public async Task<PersonRecord> GetByEmailAsync(string email)
+        {
+            var people = await QueryAsync($"SELECT Id, Email, FullName, FavoriteColor FROM Person WHERE Email = {email}", PersonRecord.FromDataReader);
+            return people.Single();
+        }
+
+        public void Insert(PersonRecord person)
+        {
+            ExecuteNonQuery($"INSERT INTO Person (Email, FullName, FavoriteColor) VALUES ({person.Email}, {person.FullName}, {person.FavoriteColor});");
+        }
+
+        public PersonRecord GetByEmail(string email)
+        {
+            var people = Query($"SELECT Id, Email, FullName, FavoriteColor FROM Person WHERE Email = {email}", PersonRecord.FromDataReader);
+            return people.Single();
         }
 
         public void DeleteAllPeople()
