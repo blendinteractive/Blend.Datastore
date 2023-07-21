@@ -6,10 +6,10 @@
     <PackageId>BlendInteractive.Datastore</PackageId>
     <Description>A minimalist SQL migration system and access pattern</Description>
 
-    <Version>1.0.2</Version>
-    <PackageVersion>1.0.2</PackageVersion>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.1.0</Version>
+    <PackageVersion>1.1.0</PackageVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
 
     <Authors>Blend Interactive</Authors>
     <Company>Blend Interactive</Company>
@@ -24,7 +24,7 @@
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
 
-    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    <PackageReleaseNotes>Added some convenience methods using interpolated strings</PackageReleaseNotes>
 
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
