@@ -8,7 +8,7 @@ namespace BlendInteractive.Datastore.Tests
     public class DatabaseMigrationTests
     {
         // Terrible way to do this, but make this a connection string to an empty SQL database.
-        private static readonly string ConnectionString = "Server=.;Database=DatastoreTests;Integrated Security=true;";
+        private static readonly string ConnectionString = "Server=.;Database=DatastoreTests;Integrated Security=true;Encrypt=No";
 
         [Fact]
         public void MigrationsHappen()
