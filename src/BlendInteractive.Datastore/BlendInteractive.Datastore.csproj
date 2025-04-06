@@ -6,10 +6,10 @@
     <PackageId>BlendInteractive.Datastore</PackageId>
     <Description>A minimalist SQL migration system and access pattern</Description>
 
-    <Version>2.0.0</Version>
-    <PackageVersion>2.0.0</PackageVersion>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.1</Version>
+    <PackageVersion>2.0.1</PackageVersion>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
 
     <Authors>Blend Interactive</Authors>
     <Company>Blend Interactive</Company>
@@ -24,7 +24,7 @@
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIconUrl />
 
-    <PackageReleaseNotes>Replaced System.Data.SqlClient dependency with Microsoft.Data.SqlClient.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed potential null exceptions (null values are now passed to sql parameters as DBNull.Value automatically).</PackageReleaseNotes>
 
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

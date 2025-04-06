@@ -35,7 +35,7 @@ namespace BlendInteractive.Datastore
                 var argValue = sql.GetArgument(x);
                 var parameter = command.CreateParameter();
                 parameter.ParameterName = parameters[x];
-                parameter.Value = argValue;
+                parameter.Value = argValue ?? DBNull.Value;
                 command.Parameters.Add(parameter);
             }
 

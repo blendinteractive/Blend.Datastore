@@ -20,7 +20,7 @@ namespace BlendInteractive.Datastore.Tests
                 Id = reader.GetInt32(0),
                 Email = reader.GetString(1),
                 FullName = reader.GetString(2),
-                FavoriteColor = reader.GetString(3)
+                FavoriteColor = reader.IsDBNull(3) ? null : reader.GetString(3)
             };
         }
     }

@@ -224,5 +224,36 @@ namespace BlendInteractive.Datastore.Tests
                 cleanupFactory.EnsureMigration();
             }
         }
+
+        [Fact]
+        public void CanUseNulls()
+        {
+            try
+            {
+                var factory = new TestDatastoreFactory2(ConnectionString);
+                int currentVersion = factory.Query(db => db.GetCurrentVersion());
+                Assert.Equal(2, currentVersion);
+
+                var nullColors = new PersonRecord
+                {
+                    Email = "nullColors@example.com",
+                    FullName = "Null Colours",
+                    FavoriteColor = null
+                };
+
+                factory.Execute(db => db.Insert(nullColors));
+
+                var colorsBack = factory.Query(db => db.GetByEmail(nullColors.Email));
+                Assert.Equal(nullColors.Email, colorsBack.Email);
+                Assert.Equal(nullColors.FullName, colorsBack.FullName);
+                Assert.Null(colorsBack.FavoriteColor);
+            }
+            finally
+            {
+                // Clean up, version 3 (0002.sql) cleans up DB
+                var cleanupFactory = new TestDatastoreFactory3(ConnectionString);
+                cleanupFactory.EnsureMigration();
+            }
+        }
     }
 }
